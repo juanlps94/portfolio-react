@@ -14,5 +14,4 @@ const App = () => {
 }
 
 
-/* HOLA MUNDO */
 export default App
