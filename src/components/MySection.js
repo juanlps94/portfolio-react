@@ -1,8 +1,9 @@
-import foto from './images/perfilws.jpg'
 import { SiWhatsapp, SiGithub, SiInstagram, SiFacebook } from "react-icons/si";
-import survey from './images/tribute2.png'
 import styled from 'styled-components';
+import { useState, useEffect } from 'react';
+import obtainData from '../helpers/requestProjects';
 
+const cargarImagen = require.context("../../public/projects/images", true);
 
 const Container = styled.div`
     max-width: 1200px;
@@ -15,16 +16,26 @@ const Img = styled.img`
     height: auto;
     border-radius: 50%;
 `
+
 const MySection = ({ id }) => {
+    const [proyectos, setProyectos] = useState([]);
+    useEffect(() => {
+        if (id === 'projects') {
+            obtainData()
+                .then(res => setProyectos(res.data));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     switch (id) {
         case 'welcome-section':
             return (
                 <section id={id} >
                     <Container >
-                        <Img id='photoPerfil' src={foto} />
+                        <Img id='photoPerfil' src={cargarImagen("./perfilws.jpg")} />
                         <h1>Hey I am Juan Luis</h1>
                         <p>a web developer</p>
-                        <a href='#' >If u want to know more about me visit my profile here</a>
+                        <a href='./about.html' >If u want to know more about me visit my profile here</a>
                     </Container>
                 </section >
             )
@@ -35,24 +46,19 @@ const MySection = ({ id }) => {
                     <Container>
                         <h2 style={{ borderBottom: '0.2rem solid #f0f0f0', margin: '0 auto 10rem auto' }}> Here any some projects made by me </h2>
                         <div id='project-grid'>
-                            <div className='project'>
-                                <a>
-                                    <img src={survey} className='project-image' />
-                                    <p>Survey made by Juan Luis</p>
-                                </a>
-                            </div>
-                            <div className='project'>
-                                <a>
-                                    <img src={survey} className='project-image' />
-                                    <p>Survey made by Juan Luis</p>
-                                </a>
-                            </div>
-                            <div className='project'>
-                                <a>
-                                    <img src={survey} className='project-image' />
-                                    <p>Survey made by Juan Luis</p>
-                                </a>
-                            </div>
+                            {
+                                proyectos.length === 0
+                                    ? <div>Cargando...</div>
+                                    : proyectos.map(proyecto => {
+                                        return (<div className='project' key={proyecto.name}>
+                                            <a href={proyecto.url}>
+                                                <img src={cargarImagen(proyecto.img)} className='project-image' alt='imageProject' />
+                                                <p>{proyecto.name}</p>
+                                            </a>
+                                        </div>)
+                                    })
+                            }
+
                         </div>
                     </Container>
                 </section >
@@ -84,13 +90,15 @@ const MySection = ({ id }) => {
             return (
                 <section id='profile-flex'>
                     <Container>
-                        <SiWhatsapp id='iconWhats' className='iconFont' />
-                        <SiGithub id='iconGit' className='iconFont' />
-                        <SiFacebook id='iconFace' className='iconFont' />
-                        <SiInstagram id='iconInst' className='iconFont' />
+                        <a href="https://wa.me/+584241888345"><SiWhatsapp id='iconWhats' className='iconFont' /></a>
+                        <a href="https://github.com/juanlps94"><SiGithub id='iconGit' className='iconFont' /></a>
+                        <a href="https://www.facebook.com/juanluis.perez.37"><SiFacebook id='iconFace' className='iconFont' /></a>
+                        <a href="https://instagram.com/juanlps54"><SiInstagram id='iconInst' className='iconFont' /></a>
                     </Container>
                 </section>
             )
+        default:
+            break
     }
 }
 

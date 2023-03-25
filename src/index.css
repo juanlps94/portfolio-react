@@ -41,6 +41,10 @@ ul {
   padding: 0;
 }
 
+a{
+ color: #FFF;
+ text-decoration: none; 
+}
 
 #photoPerfil {
   border-radius: 50%;
@@ -63,6 +67,7 @@ ul {
 }
 
 .iconFont {
+  cursor: pointer;
   font-size: 100px;
 }
 
@@ -92,8 +97,6 @@ ul {
 }
 
 #welcome-section a {
-  text-decoration: none;
-  color: #FFF;
   padding: 5px;
   position: relative;
   z-index: 2;
@@ -139,28 +142,13 @@ ul {
   max-width: 120rem;
   margin: 0 auto;
   margin-bottom: 5rem
-}
+}  
 
 .project a p {
   font-size: 1.8rem;
   padding: 1rem 1rem;
   margin: 0;
-}
-
-@media(min-width:768px) {
-  #project-grid {
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  }
-
-  div.project {
-    transition: all .3s ease-in-out;
-  }
-
-  div.project:hover {
-    transform: scale(1.1);
-  }
-}
-
+}  
 
 #projects {
   text-align: center;
@@ -174,12 +162,27 @@ ul {
   border-radius: 5px;
 }
 
-
 .project-image {
   height: calc(100% - 7rem);
   width: 100%;
   object-fit: cover;
 }
+@media(min-width:768px) {
+  #project-grid {
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  }  
+
+  div.project {
+    transition: all .3s ease-in-out;
+  }  
+
+  div.project:hover {
+    transform: scale(1.1);
+  }  
+}  
+
+
+
 
 #profile-link {
   background-color: var(--blue);

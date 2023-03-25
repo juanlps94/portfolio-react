@@ -19,7 +19,7 @@ const NavBar = () => {
         <Navbar>
             <Container>
                 <Menu>
-                    <Bars id='menu' />
+                    <Bars />
                 </Menu>
             </Container>
         </Navbar>
